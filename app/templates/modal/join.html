@@ -1,0 +1,62 @@
+<!-- join Modal  -->
+<div class="modal fade" id="joinModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Join Table</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form class="user" action = "{{ 'integration' }}" method = "POST" enctype="multipart/form-data">
+                <!-- first table  -->
+                <div class="form-group">
+                    <label>Source Table</label>
+                    <select class="form-control" id="source" name="source" onclick="dropdown_sources()">
+                        {%for x in tables%}
+                            <option value="{{x.id}}">{{x.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Source ID</label>
+                    <select id="source_id" class="form-control" name="source_id">
+                    </select>
+                </div>
+
+                <!-- second table  -->
+                <div class="form-group">
+                    <label>Target Table</label>
+                    <select class="form-control" id='target' name="target" onclick="dropdown_targets()">
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Target ID</label>
+                    <select id="target_id" class="form-control" name="target_id">
+                    </select>
+                </div>
+
+                <!-- method -->
+                <div class="form-group">
+                    <label>Method</label>
+                    <select class="form-control" name="method">
+                        <option value="inner">Inner</option>
+                        <option value="right">Right</option>
+                        <option value="left">Left</option>
+                        <option value="outer">Outer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary btn-block" value="Submit">
+                </div>
+                <hr>
+            </form>
+        </div>
+    </div>
+</div>
+</div>

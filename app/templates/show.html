@@ -1,0 +1,74 @@
+{% extends "modal/preprocess.html" %}
+
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    {% if status  == "raw"%}
+    <div class="form-group row">
+        <form class="user" action = "{{ 'save_raw?id=%s'%id|urlencode }}" method = "POST" enctype="multipart/form-data">
+            <a href="#" class="btn btn-secondary btn-icon-split btn-sm" type="submit">
+                <input type="submit" class="btn btn-success btn-block" value="Save to Raw">
+            </a>
+        </form>
+        <form class="user" action = "{{ 'save_dataset?id=%s'%id|urlencode }}" method = "POST" enctype="multipart/form-data">
+            <a href="#" class="btn btn-secondary btn-icon-split btn-sm" type="submit">
+                <input type="submit" class="btn btn-primary btn-block" value="Save to Dataset">
+            </a>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">{{name}}</h6>
+        <div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-header">DataPrep</div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#renameModal">Rename</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#selectModal">Select Column</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#numFilterModal">Range Filter</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#textFilterModal">Str Filter</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#replaceTextModal">Replace Text</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        {% for col in head%}
+                        <th>{{col}}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        {% for col in head%}
+                        <th>{{col}}</th>
+                        {% endfor %}
+                    </tr>
+                </tfood>
+                <tbody>
+                    {% for i in values %}
+                    <tr>
+                        {% for j in i %}
+                        <td>{{j}}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{{ super() }}
+{% endblock %}

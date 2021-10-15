@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#joinModal"><i
+            class="fas fa-cog fa-sm text-white-50"></i> Set Relation</a>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary"></h6>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Source Table</th>
+                <th>Source Id</th>
+                <th>Target Table</th>
+                <th>Target Id</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.sourcetbl_name}}</td>
+                <td>{{i.source_key_id}}</td>
+                <td>{{i.targettbl_name}}</td>
+                <td>{{i.target_key_id}}</td>
+                <td>
+                    <form method="POST" action="{{ 'delete_merge?id=%s'%i.id|urlencode }}">
+                        <button type="button" class="btn btn-light no-underline"><a href="{{ 'show_integrate?id=%s'%i.id|urlencode }}">
+                            <i class="far fa-eye"></i>
+                        </a></button>
+                        </a></button>
+                        <button type="submit" class="btn btn-light no-underline"><a href="#"></a><i class="far fa-trash-alt"></i></a></button>
+                    </form>
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include "modal/join.html" %}
+{% include "js/functions.html" %}
+{% endblock %}

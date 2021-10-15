@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    {% if pagename== "rawData" %}
+    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal" data-target="#addsourcemodal"><i
+        class="fas fa-upload fa-sm text-white-50"></i>  Upload Data</a>
+    {% else %}
+    <h1 class="h3 mb-0 text-gray-800">Dataset</h1>
+    {% endif %}
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary"></h6>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for i in list_info %}
+                <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.status}}</td>
+                <td>
+                    <form method="POST" action="{{ 'delete?id=%s'%i.id|urlencode }}">
+                        <button type="button" class="btn btn-light no-underline"><a href="{{ 'show?id=%s'%i.id|urlencode }}">
+                            <i class="far fa-eye"></i>
+                        </a></button>
+                        <button type="submit" class="btn btn-light no-underline"><a href="#"></a><i class="far fa-trash-alt"></i></a></button>
+                    </form>
+                </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include "modal/upload.html"%}
+{% endblock %}

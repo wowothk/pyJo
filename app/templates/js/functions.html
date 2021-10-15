@@ -1,0 +1,55 @@
+<script type="text/javascript">
+    function dropdown_targets() {
+        var trgt = document.getElementById('target').value;
+        var fields=JSON.parse(JSON.stringify({{fields|tojson}}));
+        var target_columns = fields[trgt];
+        console.log(target_columns)
+        removeOptions(document.getElementById("target_id"));
+        for (cl in target_columns) {
+            var x = document.getElementById("target_id");
+            var opt = document.createElement("option");
+            opt.value = target_columns[cl];
+            opt.text = target_columns[cl];
+            x.add(opt);
+        }
+    }
+    
+    function dropdown_sources() {
+        var src = document.getElementById('source').value;
+        var fields=JSON.parse(JSON.stringify({{fields|tojson}}));
+        var tables=JSON.parse(JSON.stringify({{tables|tojson}}));
+        var src_columns = fields[src];
+        
+        // set column option
+        removeOptions(document.getElementById("source_id"));
+        for (cl in src_columns) {
+            var x = document.getElementById("source_id");
+            var opt = document.createElement("option");
+            opt.value = src_columns[cl];
+            opt.text = src_columns[cl];
+            x.add(opt);
+        }
+    
+        console.log(tables)
+        // set target table
+        removeOptions(document.getElementById("target"));
+        for (i in tables) {
+            if (tables[i]["id"] != src) {
+                var trg = document.getElementById("target");
+                console.log(trg)
+                var opti = document.createElement("option");
+                opti.value = tables[i]["id"];
+                opti.text = tables[i]["name"];
+                trg.add(opti);
+            }
+        }
+     }
+    
+    //  remove option 
+    function removeOptions(selectElement) {
+       var i, L = selectElement.options.length - 1;
+       for(i = L; i >= 0; i--) {
+          selectElement.remove(i);
+       }
+    }
+</script>
